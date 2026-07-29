@@ -7,8 +7,6 @@ Paulo Henrique Mota de Oliveira 14601816)_
 
 **Plataforma:** Raspberry Pi 4 + Freenove Projects Board for Raspberry Pi v1.2
 
-> Base para a versão final em LaTeX (Overleaf).
-
 ---
 
 ## 1. Motivação
@@ -50,59 +48,66 @@ como interface física complementar.
 | RF05 | Detecção de colisão com parede | ✅ |
 | RF06 | Detecção de colisão consigo mesma | ✅ |
 | RF07 | Estado de Game Over e reinício | ✅ |
-| RF08 | Controle por joystick analógico e por botões | ✅ |
-| RF09 | Exibição de score e nível no LCD1602 | ✅ |
-| RF10 | Seleção de dificuldade por RFID | ✅ |
-| RF11 | Efeitos sonoros distintos por evento | ✅ |
-| RF12 | Animações na matriz de LED 8×8 | ✅ |
+| RF08 | Controle por joystick analógico, botões físicos e teclado | ✅ |
+| RF09 | Exibição de pontuação e nível no LCD1602 | ✅ |
+| RF10 | Seleção opcional de dificuldade por RFID | ✅ |
+| RF11 | Efeitos sonoros distintos para eventos do jogo | ✅ |
+| RF12 | Exibição de animações na matriz de LEDs 8×8 quando selecionada no barramento 74HC595 | ✅ |
 | RF13 | Indicação de velocidade no bar graph | ✅ |
-| RF14 | Exibição do score no display de 4 dígitos | ✅ |
-| RF15 | Botão de pausa e de reinício | ✅ |
+| RF14 | Exibição da pontuação no display de quatro dígitos quando selecionado no barramento 74HC595 | ✅ |
+| RF15 | Comandos de pausa e reinício | ✅ |
 | RF16 | Ajuste de velocidade pelo potenciômetro | ✅ |
-| RF17 | Sistema de níveis com aumento de velocidade | ✅ |
+| RF17 | Sistema de níveis com aumento progressivo de velocidade | ✅ |
 | RF18 | Frutas especiais temporárias | ✅ |
-| RF19 | Obstáculos conforme dificuldade | ✅ |
+| RF19 | Obstáculos definidos conforme a dificuldade | ✅ |
 | RF20 | Ranking persistido em arquivo | ✅ |
 
 ## 4. Requisitos não funcionais
 
-| ID | Requisito |
-|----|-----------|
-| RNF01 | Executar em Raspberry Pi OS Bookworm, Python 3.11 |
-| RNF02 | Renderização a 60 fps no monitor HDMI |
-| RNF03 | Degradação graciosa: periférico ausente não interrompe o jogo |
-| RNF04 | Código modular em camadas, com baixo acoplamento |
-| RNF05 | Lógica de jogo testável sem hardware |
-| RNF06 | Toda a pinagem centralizada em um único arquivo de configuração |
-| RNF07 | Aderência a PEP 8, com type hints e docstrings |
-| RNF08 | Concorrência sem travamento do laço principal |
-| RNF09 | Encerramento limpo, liberando GPIOs |
-| RNF10 | Multiplexação dos displays sem cintilação perceptível (> 200 Hz) |
+| ID | Requisito | Status |
+|----|-----------|--------|
+| RNF01 | Execução em Raspberry Pi OS Bookworm com Python 3.11 | ✅ |
+| RNF02 | Renderização do jogo no monitor HDMI com taxa configurável de quadros | ✅ |
+| RNF03 | Degradação graciosa: a ausência ou falha de um periférico não interrompe o jogo | ✅ |
+| RNF04 | Código modular, organizado em camadas e com baixo acoplamento | ✅ |
+| RNF05 | Lógica do jogo testável sem acesso ao hardware físico | ✅ |
+| RNF06 | Pinagem e parâmetros de hardware centralizados em arquivo de configuração | ✅ |
+| RNF07 | Uso de type hints, docstrings e organização compatível com PEP 8 | ✅ |
+| RNF08 | Uso de concorrência sem bloquear o laço principal do jogo | ✅ |
+| RNF09 | Encerramento limpo, com liberação dos recursos de GPIO | ✅ |
+| RNF10 | Atualização estável do dispositivo selecionado no barramento 74HC595, respeitando as limitações físicas de multiplexação da placa | ✅ |
 
 ---
 ## 5. Diagramas da arquitetura
 
-Fontes editáveis em `docs/diagramas/*.d2`; figuras renderizadas em
-`docs/figuras/*.svg`.
+### 5.1 Arquitetura física
 
-- **Arquitetura de software** — `arquitetura_software.d2`
-- **Arquitetura física** — `arquitetura_fisica.d2`
-- **Máquina de estados (comportamental)** — `maquina_estados.d2`
+![Arquitetura física do sistema](figuras/arquitetura_fisica.svg)
 
-### 5.1 Diagrama de sequência
+### 5.2 Arquitetura de software
+
+![Arquitetura de software do sistema](figuras/arquitetura_software.svg)
+
+### 5.3 Máquina de estados
+
+![Máquina de estados do sistema](figuras/maquina_estados.svg)
+
+### 5.4 Diagrama de sequência
+
+![Diagrama de sequência do ciclo principal da partida](figuras/diagrama_sequencia.svg)
 
 O diagrama de sequência apresenta o ciclo principal da partida, mostrando a
-interação entre usuário, laço principal, GameEngine, GameState, threads de
-entrada/saída, renderizador e periféricos físicos.
+interação entre usuário, laço principal, `GameEngine`, `GameState`, threads de
+entrada e saída, renderizador e periféricos físicos.
 
 ---
 
 ## 6. Ferramentas utilizadas
 
 ### 6.1 Linguagens
-- **Python 3.11** — aplicação completa
-- **D2** — diagramas (fonte editável)
-- **Markdown / LaTeX** — documentação
+- **Python 3.11** - aplicação completa
+- **D2** - diagramas (fonte editável)
+- **Markdown / LaTeX** - documentação
 
 ### 6.2 Bibliotecas / Frameworks
 | Biblioteca | Uso |
@@ -155,25 +160,39 @@ qualquer máquina), teste ponta-a-ponta em modo simulação (exercita as threads
 e a máquina de estados) e testes manuais de hardware na bancada (script de
 diagnóstico).
 
-### 8.2 Rastreabilidade requisito ↔ teste
+### 8.2 Rastreabilidade entre requisitos e testes
 
 | Requisito | Caso de teste | Resultado |
 |-----------|---------------|-----------|
+| RF01 | `TestMenu::*` | ✅ |
 | RF02, RF03 | `TestSnake::test_movimento`, `test_crescimento_preserva_cauda` | ✅ |
+| RF04, RF18 | `TestFruit::*` | ✅ |
 | RF05 | `TestEngine::test_morre_na_parede` | ✅ |
 | RF06 | `TestSnake::test_colisao_consigo_mesma` | ✅ |
-| RF04, RF18 | `TestFruit::*` | ✅ |
-| RF17 | `TestEngine::test_dificuldades_tem_velocidades_distintas` | ✅ |
+| RF07 | Testes de transição para `GAME_OVER` e reinício | ✅ |
+| RF13, RF14 | `TestDisplays::*` | ✅ |
 | RF16 | `TestEngine::test_potenciometro_altera_velocidade` | ✅ |
+| RF17 | `TestEngine::test_dificuldades_tem_velocidades_distintas` | ✅ |
 | RF19 | `TestBoard::test_obstaculos_respeitam_area_livre` | ✅ |
 | RF20 | `TestScoreBoard::test_persistencia`, `test_ranking_ordenado_e_limitado` | ✅ |
-| RF01 | `TestMenu::*` | ✅ |
-| RF13, RF14 | `TestDisplays::*` | ✅ |
-| RNF03 | `test_arquivo_corrompido_nao_quebra` + degradação graciosa | ✅ |
+| RNF03 | `test_arquivo_corrompido_nao_quebra` e testes de degradação graciosa | ✅ |
+| RNF05 | Execução dos testes sem hardware físico | ✅ |
 
-### 8.3 Resultados dos testes automatizados
+### 8.3 Testes de hardware
 
-31 testes, 100% aprovados. Reproduzir com:
+| Componente | Procedimento | Resultado |
+|------------|--------------|-----------|
+| Joystick analógico | Leitura dos canais 5 e 6 do ADS7830 | ✅ |
+| Potenciômetro | Leitura pelo ADC e alteração da velocidade | ✅ |
+| Botões físicos | Leitura dos GPIOs configurados | ✅ |
+| LCD1602 | Exibição de pontuação e nível via I²C | ✅ |
+| Buzzers | Reprodução dos efeitos sonoros | ✅ |
+| Bar graph | Indicação física da velocidade | ✅ |
+| Matriz 8×8 | Teste isolado no barramento 74HC595 | ✅ |
+| Display de quatro dígitos | Teste isolado no barramento 74HC595 | ✅ |
+| RFID | Leitura de cartões e seleção de dificuldade | ✅ |
+
+Foram executados **34 testes automatizados**, com **100% de aprovação**. Reproduzir com:
 
 ```bash
 python3 tests/test_game_logic.py -v
