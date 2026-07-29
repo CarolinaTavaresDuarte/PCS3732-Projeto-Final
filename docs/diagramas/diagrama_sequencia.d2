@@ -1,0 +1,57 @@
+# Diagrama de sequência do ciclo principal de uma partida
+# Renderizar com: d2 diagrama_sequencia.d2 diagrama_sequencia.svg
+# Documentação: https://d2lang.com/tour/sequence-diagrams/
+
+shape: sequence_diagram
+
+usuario: "Usuário"
+main: "main.py\nOrquestração"
+entrada: "InputThread\nEntradas"
+engine: "GameEngine\nLógica do jogo"
+state: "GameState\nEstado compartilhado"
+renderer: "Renderer\nPygame / HDMI"
+threads: "PeripheralThreads\nThreads de saída"
+hardware: "Hardware\nLCD · displays · buzzer"
+ranking: "ScoreBoard\nRanking persistente"
+
+usuario -> main: iniciar partida
+main -> engine: start_game()
+engine -> state: publicar estado inicial
+state -> renderer: snapshot inicial
+renderer -> usuario: exibir tabuleiro
+
+"loop — enquanto o estado for PLAYING": {
+  entrada -> hardware: ler botões e potenciômetro
+  hardware -> entrada: valores das entradas
+  entrada -> engine: enviar direção e velocidade
+
+  main -> engine: update()
+  engine -> engine: mover cobra
+  engine -> engine: verificar fruta e colisões
+  engine -> state: atualizar estado da partida
+
+  renderer -> state: solicitar snapshot()
+  state -> renderer: snapshot imutável
+  renderer -> usuario: renderizar quadro no HDMI
+
+  threads -> state: solicitar snapshot()
+  state -> threads: estado e eventos pendentes
+  threads -> hardware: atualizar LCD, displays e buzzer
+
+  "alt — fruta consumida": {
+    engine -> state: atualizar pontuação e comprimento
+    engine -> state: enfileirar efeito sonoro
+    engine -> engine: gerar nova fruta
+  }
+
+  "alt — colisão detectada": {
+    engine -> state: definir GAME_OVER
+    engine -> ranking: registrar pontuação
+    ranking -> engine: confirmar persistência
+  }
+}
+
+engine -> state: publicar estado final
+state -> renderer: snapshot de GAME_OVER
+renderer -> usuario: exibir fim de jogo e pontuação
+usuario -> main: reiniciar ou voltar ao menu
