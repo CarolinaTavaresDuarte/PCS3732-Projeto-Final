@@ -1,10 +1,10 @@
-# Arquitetura de software do Snake Pi (camadas)
-# Renderizar com:  d2 arquitetura_software.d2 arquitetura_software.svg
-# https://d2lang.com
+# Arquitetura de software do Snake Pi
+# Renderizar com: d2 arquitetura_software_ajustada.d2 arquitetura_software_ajustada.svg
+# Documentação: https://d2lang.com
 
 direction: down
 
-main: "main.py\n(orquestração · injeção de dependências · loop principal)" {
+main: "main.py\norquestração · injeção de dependências · loop principal" {
   shape: rectangle
   style.fill: "#0d1117"
   style.font-color: "#58a6ff"
@@ -12,48 +12,48 @@ main: "main.py\n(orquestração · injeção de dependências · loop principal)
 }
 
 input: "Camada de Entrada" {
-  joystick: "joystick.py"
-  buttons: "buttons.py (D-pad)"
-  rfid: "rfid.py"
-  keyboard: "teclado (Pygame)"
+  joystick: "joystick.py\nbotão SW"
+  buttons: "buttons.py\nbotões direcionais"
+  rfid: "rfid.py\nopcional"
+  keyboard: "teclado\nPygame"
 }
 
-logic: "Camada de Lógica (sem hardware)" {
+logic: "Camada de Lógica\nindependente de hardware" {
   engine: "engine.py"
   snake: "snake.py"
   board: "board.py"
   fruit: "fruit.py"
   score: "score.py"
   menu: "menu.py"
-  state: "state.py (RLock + filas)"
+  state: "state.py\nRLock · filas · snapshots"
 }
 
 display: "Camada de Exibição" {
-  renderer: "renderer.py (Pygame / HDMI)"
+  renderer: "renderer.py\nPygame · HDMI"
 }
 
 hardware: "Camada de Hardware" {
-  base: "base.py (degradação graciosa)"
-  adc: "adc.py (ADS7830)"
-  lcd: "lcd.py (LCD1602)"
+  base: "base.py\ndegradação graciosa"
+  adc: "adc.py\nADS7830"
+  lcd: "lcd.py\nLCD1602"
   buzzer: "buzzer.py"
-  shift: "shift_register.py (74HC595)"
+  shift: "shift_register.py\n74HC595"
   displays: "displays.py"
   manager: "display_manager.py"
 }
 
-main -> input: cria
-main -> logic: cria
-main -> display: cria
-main -> hardware: cria
-
-input -> logic: comandos
-logic -> display: estado -> desenho
-logic -> hardware: state (snapshot) -> periféricos
-
-threads: "Threads periféricas\n(LCD 4Hz · Display 420Hz · Buzzer · RFID 4Hz · Sensores 10Hz)" {
+threads: "Threads de periféricos\nLCD · varredura dos displays · buzzer · RFID · sensores" {
   style.fill: "#161b22"
   style.font-color: "#e6edf3"
 }
-threads -> logic: leem snapshot
-threads -> hardware: escrevem
+
+main -> input: inicializa
+main -> logic: inicializa
+main -> display: inicializa
+main -> hardware: inicializa
+main -> threads: inicia e encerra
+
+input -> logic: envia comandos
+logic -> display: fornece estado para renderização
+threads -> logic: leem snapshots do GameState
+threads -> hardware: atualizam periféricos
