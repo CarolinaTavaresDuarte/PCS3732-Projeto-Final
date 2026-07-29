@@ -1,5 +1,5 @@
-# Máquina de estados do jogo (modelagem comportamental)
-# Renderizar com:  d2 maquina_estados.d2 maquina_estados.svg
+# Máquina de estados do Snake Pi
+# Renderizar com: d2 maquina_estados_ajustada.d2 maquina_estados_ajustada.svg
 
 direction: down
 
@@ -8,16 +8,37 @@ MENU -> HIGH_SCORES: High Score
 MENU -> SETTINGS: Configurações
 MENU -> QUIT: Sair
 
-HIGH_SCORES -> MENU: confirmar
+HIGH_SCORES -> MENU: voltar / confirmar
 SETTINGS -> MENU: voltar
 
-PLAYING -> PAUSED: botão joystick / P
-PAUSED -> PLAYING: botão joystick / P
+PLAYING -> PAUSED: joystick SW / P
+PAUSED -> PLAYING: joystick SW / P
 PLAYING -> GAME_OVER: colisão
 
-GAME_OVER -> PLAYING: reiniciar
-GAME_OVER -> MENU: confirmar
+GAME_OVER -> PLAYING: botão de reinício / R
+GAME_OVER -> MENU: joystick SW / Enter
 
-QUIT: {style.fill: "#c9184a"; style.font-color: "#fff"}
-MENU: {style.fill: "#0d1117"; style.font-color: "#58a6ff"}
-PLAYING: {style.fill: "#2ea043"; style.font-color: "#fff"}
+QUIT: {
+  style.fill: "#c9184a"
+  style.font-color: "#ffffff"
+}
+
+MENU: {
+  style.fill: "#0d1117"
+  style.font-color: "#58a6ff"
+}
+
+PLAYING: {
+  style.fill: "#2ea043"
+  style.font-color: "#ffffff"
+}
+
+PAUSED: {
+  style.fill: "#d29922"
+  style.font-color: "#ffffff"
+}
+
+GAME_OVER: {
+  style.fill: "#da3633"
+  style.font-color: "#ffffff"
+}
