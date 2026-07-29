@@ -1,0 +1,23 @@
+# Máquina de estados do jogo (modelagem comportamental)
+# Renderizar com:  d2 maquina_estados.d2 maquina_estados.svg
+
+direction: down
+
+MENU -> PLAYING: Start Game
+MENU -> HIGH_SCORES: High Score
+MENU -> SETTINGS: Configurações
+MENU -> QUIT: Sair
+
+HIGH_SCORES -> MENU: confirmar
+SETTINGS -> MENU: voltar
+
+PLAYING -> PAUSED: botão joystick / P
+PAUSED -> PLAYING: botão joystick / P
+PLAYING -> GAME_OVER: colisão
+
+GAME_OVER -> PLAYING: reiniciar
+GAME_OVER -> MENU: confirmar
+
+QUIT: {style.fill: "#c9184a"; style.font-color: "#fff"}
+MENU: {style.fill: "#0d1117"; style.font-color: "#58a6ff"}
+PLAYING: {style.fill: "#2ea043"; style.font-color: "#fff"}

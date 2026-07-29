@@ -1,0 +1,40 @@
+test_obstaculos_respeitam_area_livre (__main__.TestBoard.test_obstaculos_respeitam_area_livre) ... ok
+test_parede_mata_ou_atravessa (__main__.TestBoard.test_parede_mata_ou_atravessa) ... ok
+test_quantidade_de_obstaculos (__main__.TestBoard.test_quantidade_de_obstaculos) ... ok
+test_bargraph_polaridade_ativo_alto (__main__.TestDisplays.test_bargraph_polaridade_ativo_alto) ... ok
+test_bargraph_proporcional (__main__.TestDisplays.test_bargraph_proporcional) ... ok
+test_bargraph_vazio_apaga_tudo (__main__.TestDisplays.test_bargraph_vazio_apaga_tudo) ... ok
+test_display4_alinha_a_direita (__main__.TestDisplays.test_display4_alinha_a_direita) ... ok
+test_display4_estouro (__main__.TestDisplays.test_display4_estouro) ... ok
+test_display4_selecao_de_digito_ativa_alto (__main__.TestDisplays.test_display4_selecao_de_digito_ativa_alto) ... ok
+test_matriz_percorre_8_colunas (__main__.TestDisplays.test_matriz_percorre_8_colunas) ... ok
+test_comer_pontua_e_cresce (__main__.TestEngine.test_comer_pontua_e_cresce) ... ok
+test_dificuldades_tem_velocidades_distintas (__main__.TestEngine.test_dificuldades_tem_velocidades_distintas) ... ok
+test_easy_atravessa_parede (__main__.TestEngine.test_easy_atravessa_parede) ... ok
+test_morre_na_parede (__main__.TestEngine.test_morre_na_parede) ... ok
+test_potenciometro_altera_velocidade (__main__.TestEngine.test_potenciometro_altera_velocidade) ... ok
+test_velocidade_normalizada_no_intervalo (__main__.TestEngine.test_velocidade_normalizada_no_intervalo) ... ok
+test_expiracao (__main__.TestFruit.test_expiracao) ... ok
+test_nasce_em_celula_livre (__main__.TestFruit.test_nasce_em_celula_livre) ... ok
+test_sem_espaco_devolve_none (__main__.TestFruit.test_sem_espaco_devolve_none) ... ok
+test_navegacao_circular (__main__.TestMenu.test_navegacao_circular) ... ok
+test_repeticao_temporizada (__main__.TestMenu.test_repeticao_temporizada) ... ok
+test_arquivo_corrompido_nao_quebra (__main__.TestScoreBoard.test_arquivo_corrompido_nao_quebra) ... Ranking ilegível (Expecting property name enclosed in double quotes: line 1 column 3 (char 2)); começando um novo.
+ok
+test_persistencia (__main__.TestScoreBoard.test_persistencia) ... ok
+test_pontuacao_e_recorde (__main__.TestScoreBoard.test_pontuacao_e_recorde) ... ok
+test_ranking_ordenado_e_limitado (__main__.TestScoreBoard.test_ranking_ordenado_e_limitado) ... ok
+test_colisao_consigo_mesma (__main__.TestSnake.test_colisao_consigo_mesma) ... ok
+test_comprimento_e_posicao_inicial (__main__.TestSnake.test_comprimento_e_posicao_inicial) ... ok
+test_crescimento_preserva_cauda (__main__.TestSnake.test_crescimento_preserva_cauda) ... ok
+test_movimento (__main__.TestSnake.test_movimento) ... ok
+test_nao_vira_180_graus (__main__.TestSnake.test_nao_vira_180_graus) ... ok
+test_wrap_nas_bordas (__main__.TestSnake.test_wrap_nas_bordas) ... ok
+test_fila_de_som_nao_bloqueia_quando_cheia (__main__.TestState.test_fila_de_som_nao_bloqueia_quando_cheia) ... ok
+test_shutdown (__main__.TestState.test_shutdown) ... ok
+test_snapshot_reflete_escrita (__main__.TestState.test_snapshot_reflete_escrita) ... ok
+
+----------------------------------------------------------------------
+Ran 34 tests in 0.040s
+
+OK

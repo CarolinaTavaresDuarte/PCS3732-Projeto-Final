@@ -1,0 +1,45 @@
+# Arquitetura física: Raspberry Pi 4 + Freenove Projects Board v1.2
+# Renderizar com:  d2 arquitetura_fisica.d2 arquitetura_fisica.svg
+
+direction: right
+
+pi: "Raspberry Pi 4" {
+  shape: rectangle
+  style.fill: "#c9184a"
+  style.font-color: "#ffffff"
+}
+
+monitor: "Monitor HDMI\n(jogo em Pygame)" {
+  shape: rectangle
+}
+
+i2c: "Barramento I²C-1\nSDA=GPIO2 · SCL=GPIO3" {
+  adc: "ADS7830 (0x48)\njoystick X/Y · potenciômetro"
+  lcd: "LCD1602 (0x27)\nscore · nível"
+}
+
+spi: "Barramento SPI0\nMOSI10 MISO9 SCLK11 CE0=8" {
+  rfid: "MFRC522\ndificuldade por cartão"
+}
+
+hc595: "74HC595\nDS22 · ST_CP27 · SH_CP17" {
+  matrix: "Matriz 8x8"
+  bar: "Bar graph"
+  seg: "Display 4 dígitos"
+}
+
+gpio: "GPIO diretos" {
+  joy_sw: "Joystick SW (GPIO7)"
+  btn_up: "Botão azul (GPIO20) cima"
+  btn_dn: "Botão vermelho (GPIO21) baixo"
+  btn_lf: "Botão amarelo (GPIO26) esquerda"
+  btn_rt: "Botão verde (GPIO16) direita"
+  buz_a: "Buzzer ativo (GPIO12)"
+  buz_p: "Buzzer passivo (GPIO4)"
+}
+
+pi -> monitor: HDMI
+pi -> i2c
+pi -> spi
+pi -> hc595
+pi -> gpio

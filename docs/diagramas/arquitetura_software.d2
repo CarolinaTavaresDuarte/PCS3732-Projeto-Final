@@ -1,0 +1,59 @@
+# Arquitetura de software do Snake Pi (camadas)
+# Renderizar com:  d2 arquitetura_software.d2 arquitetura_software.svg
+# https://d2lang.com
+
+direction: down
+
+main: "main.py\n(orquestração · injeção de dependências · loop principal)" {
+  shape: rectangle
+  style.fill: "#0d1117"
+  style.font-color: "#58a6ff"
+  style.bold: true
+}
+
+input: "Camada de Entrada" {
+  joystick: "joystick.py"
+  buttons: "buttons.py (D-pad)"
+  rfid: "rfid.py"
+  keyboard: "teclado (Pygame)"
+}
+
+logic: "Camada de Lógica (sem hardware)" {
+  engine: "engine.py"
+  snake: "snake.py"
+  board: "board.py"
+  fruit: "fruit.py"
+  score: "score.py"
+  menu: "menu.py"
+  state: "state.py (RLock + filas)"
+}
+
+display: "Camada de Exibição" {
+  renderer: "renderer.py (Pygame / HDMI)"
+}
+
+hardware: "Camada de Hardware" {
+  base: "base.py (degradação graciosa)"
+  adc: "adc.py (ADS7830)"
+  lcd: "lcd.py (LCD1602)"
+  buzzer: "buzzer.py"
+  shift: "shift_register.py (74HC595)"
+  displays: "displays.py"
+  manager: "display_manager.py"
+}
+
+main -> input: cria
+main -> logic: cria
+main -> display: cria
+main -> hardware: cria
+
+input -> logic: comandos
+logic -> display: estado -> desenho
+logic -> hardware: state (snapshot) -> periféricos
+
+threads: "Threads periféricas\n(LCD 4Hz · Display 420Hz · Buzzer · RFID 4Hz · Sensores 10Hz)" {
+  style.fill: "#161b22"
+  style.font-color: "#e6edf3"
+}
+threads -> logic: leem snapshot
+threads -> hardware: escrevem
