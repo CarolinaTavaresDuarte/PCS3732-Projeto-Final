@@ -1,7 +1,10 @@
 # Snake Pi — Relatório do Projeto
 
 **Disciplina:** Laboratório de Processadores — Escola Politécnica da USP  
-**Grupo:** _(preencher: integrantes e NUSP)_  
+**Grupo:** _(Ana Paula Arejano 13680289
+Carolina Tavares Duarte 12690963
+Paulo Henrique Mota de Oliveira 14601816)_ 
+
 **Plataforma:** Raspberry Pi 4 + Freenove Projects Board for Raspberry Pi v1.2
 
 > Base para a versão final em LaTeX (Overleaf).
