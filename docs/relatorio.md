@@ -82,19 +82,19 @@ como interface física complementar.
 
 ### 5.1 Arquitetura física
 
-![Arquitetura física do sistema](figuras/arquitetura_fisica.svg)
+![Arquitetura física do sistema](figuras/arquitetura_fisica.pdf)
 
 ### 5.2 Arquitetura de software
 
-![Arquitetura de software do sistema](figuras/arquitetura_software.svg)
+![Arquitetura de software do sistema](figuras/arquitetura_software.pdf)
 
 ### 5.3 Máquina de estados
 
-![Máquina de estados do sistema](figuras/maquina_estados.svg)
+![Máquina de estados do sistema](figuras/maquina_estados.pdf)
 
 ### 5.4 Diagrama de sequência
 
-![Diagrama de sequência do ciclo principal da partida](figuras/diagrama_sequencia.svg)
+![Diagrama de sequência do ciclo principal da partida](figuras/diagrama_sequencia.pdf)
 
 O diagrama de sequência apresenta o ciclo principal da partida, mostrando a
 interação entre usuário, laço principal, `GameEngine`, `GameState`, threads de
