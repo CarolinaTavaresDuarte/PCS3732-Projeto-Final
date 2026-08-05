@@ -164,8 +164,6 @@ A validação combinou testes automatizados, execução em modo simulado e teste
 | Botão do joystick | ✅ |
 | Buzzers | ✅ |
 | Display de quatro dígitos | ✅ |
-| LCD1602 | Parcialmente validado |
-| RFID | Opcional |
 
 Foram executados **34 testes automatizados**, todos aprovados.
 
