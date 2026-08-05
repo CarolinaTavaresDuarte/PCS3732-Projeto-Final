@@ -1,47 +1,57 @@
 # Snake Pi
 
-**Snake Pi** é uma implementação do clássico jogo Snake desenvolvida para a disciplina **Laboratório de Processadores** da Escola Politécnica da Universidade de São Paulo (USP).
+**Snake Pi** é uma implementação do clássico jogo Snake desenvolvida
+para a disciplina **Laboratório de Processadores** da Escola Politécnica
+da Universidade de São Paulo (USP).
 
-O projeto foi desenvolvido para a plataforma **Raspberry Pi 4** utilizando a **Freenove Projects Board v1.2**, integrando diversos periféricos físicos a uma aplicação gráfica executada no monitor HDMI.
+O projeto foi desenvolvido para a plataforma **Raspberry Pi 4**
+utilizando a **Freenove Projects Board v1.2**, integrando periféricos
+físicos a uma aplicação gráfica executada em monitor HDMI.
 
-A arquitetura foi projetada para manter a lógica do jogo independente do hardware, permitindo executar o projeto tanto na Raspberry Pi quanto em modo de simulação em qualquer computador com Python.
+A arquitetura foi projetada para manter a lógica do jogo independente do
+hardware, permitindo executar o projeto tanto na Raspberry Pi quanto em
+modo de simulação em qualquer computador com Python.
 
----
+------------------------------------------------------------------------
 
 # Funcionalidades
 
-- Menu inicial com navegação por botões físicos
-- Sistema de níveis
-- Três níveis de dificuldade (Easy, Normal e Hard)
-- Frutas normais e especiais
-- Obstáculos conforme a dificuldade
-- Ajuste da velocidade por potenciômetro
-- Ranking persistente em arquivo JSON
-- Exibição gráfica utilizando Pygame
-- Integração com os periféricos da Freenove Projects Board
-- Execução em modo simulado (sem hardware)
-- Testes automatizados da lógica do jogo
+-   Menu inicial
+-   Sistema de níveis
+-   Três dificuldades
+-   Frutas normais e especiais
+-   Obstáculos
+-   Ajuste de velocidade por potenciômetro
+-   Ranking persistente
+-   Interface gráfica em Pygame
+-   Display de quatro dígitos (74HC595)
+-   LCD1602
+-   Buzzers
+-   Execução em modo simulado
+-   34 testes automatizados
 
----
+------------------------------------------------------------------------
 
 # Hardware utilizado
 
-- Raspberry Pi 4 Model B
-- Freenove Projects Board v1.2
-- LCD1602
-- Display de 4 dígitos
-- Matriz LED 8×8
-- LED Bar Graph
-- Buzzers ativo e passivo
-- Potenciômetro
-- Botões físicos
-- Leitor RFID (opcional)
+-   Raspberry Pi 4 Model B
+-   Freenove Projects Board v1.2
+-   LCD1602
+-   Display de quatro dígitos e sete segmentos
+-   74HC595
+-   ADS7830
+-   Potenciômetro
+-   Botões físicos
+-   Botão do joystick
+-   Buzzers ativo e passivo
+-   Leitor RFID (opcional)
+-   Monitor HDMI
 
----
+------------------------------------------------------------------------
 
 # Estrutura do projeto
 
-```text
+``` text
 projeto/
 ├── src/
 │   ├── display/
@@ -53,11 +63,9 @@ projeto/
 │   ├── diagnostico_placa.py
 │   ├── calibrar_joystick.py
 │   └── main.py
-│
 ├── tests/
-│
 ├── docs/
-│
+│   └── diagramas/
 ├── README.md
 ├── LICENSE
 ├── requirements.txt
@@ -65,91 +73,72 @@ projeto/
 └── conftest.py
 ```
 
----
+------------------------------------------------------------------------
 
 # Organização do software
 
-O projeto foi dividido em módulos independentes.
+  Módulo        Responsabilidade
+  ------------- ----------------------------
+  `game/`       Lógica do jogo
+  `hardware/`   Drivers dos periféricos
+  `display/`    Interface gráfica (Pygame)
+  `threads/`    Atualização assíncrona
+  `utils/`      Utilitários
+  `config.py`   Configuração centralizada
+  `main.py`     Inicialização
 
-| Módulo | Responsabilidade |
-|---------|------------------|
-| `game/` | Lógica do jogo |
-| `hardware/` | Drivers dos periféricos |
-| `display/` | Renderização gráfica (Pygame) |
-| `threads/` | Atualização assíncrona dos periféricos |
-| `utils/` | Utilitários compartilhados |
-| `config.py` | Configuração centralizada do projeto |
-| `main.py` | Inicialização e execução da aplicação |
-
-Essa organização reduz o acoplamento entre os componentes e facilita manutenção, testes e reutilização do código.
-
----
+------------------------------------------------------------------------
 
 # Requisitos
 
-- Raspberry Pi OS Bookworm
-- Python 3.11
-- Raspberry Pi 4
-- Freenove Projects Board v1.2
+-   Raspberry Pi OS Bookworm
+-   Python 3.11
+-   Raspberry Pi 4
+-   Freenove Projects Board v1.2
 
-Também é possível executar o projeto em modo de simulação, sem qualquer hardware conectado.
+Também é possível executar em modo simulado.
 
----
+------------------------------------------------------------------------
 
 # Instalação
 
-Clone o repositório:
-
-```bash
-git clone <repositorio>
-cd projeto
-```
-
-Conceda permissão ao instalador:
-
-```bash
+``` bash
+git clone https://github.com/CarolinaTavaresDuarte/PCS3732-Projeto-Final.git
+cd PCS3732-Projeto-Final
 chmod +x install.sh
-```
-
-Execute:
-
-```bash
 ./install.sh
 ```
 
-O script instala automaticamente as dependências necessárias para o projeto.
-
----
+------------------------------------------------------------------------
 
 # Execução
 
-Na Raspberry Pi:
+Raspberry Pi:
 
-```bash
+``` bash
 cd src
 python3 main.py
 ```
 
-Modo simulado (sem hardware):
+Modo simulado:
 
-```bash
-cd src
+``` bash
 python3 main.py --sim
 ```
 
-Executar em janela:
+Janela:
 
-```bash
+``` bash
 python3 main.py --windowed
 ```
 
-Log detalhado:
+Logs:
 
-```bash
+``` bash
 python3 main.py --log DEBUG
 ```
 
----
+------------------------------------------------------------------------
 
 # Controles
 
@@ -173,74 +162,74 @@ python3 main.py --log DEBUG
 
 Como alternativa, também é possível utilizar o teclado durante a execução em um computador.
 
----
-
-# Periféricos utilizados
-
-| Periférico | Função |
-|------------|--------|
-| LCD1602 | Exibe informações da partida |
-| Display de 4 dígitos | Pontuação |
-| Matriz 8×8 | Animações de eventos |
-| LED Bar Graph | Velocidade da cobra |
-| Buzzers | Efeitos sonoros |
-| Potenciômetro | Controle de velocidade |
-| Botões | Movimento e navegação |
-| RFID | Seleção opcional de dificuldade |
-
----
+------------------------------------------------------------------------
 
 # Testes
 
-A lógica do jogo foi desenvolvida independentemente do hardware, permitindo a execução de testes automatizados.
+Foram implementados **34 testes automatizados**, cobrindo:
 
-Foram implementados **34 testes**, cobrindo:
-
-- movimentação da cobra;
-- colisões;
-- frutas;
-- obstáculos;
-- sistema de níveis;
-- dificuldades;
-- persistência do ranking;
-- menus;
-- displays;
-- estado compartilhado.
+-   lógica do jogo;
+-   menus;
+-   ranking;
+-   display;
+-   obstáculos;
+-   dificuldades;
+-   estado compartilhado.
 
 Executar:
 
-```bash
+``` bash
 python3 tests/test_game_logic.py -v
 ```
 
 ou
 
-```bash
+``` bash
 python3 -m pytest tests -v
 ```
 
----
+------------------------------------------------------------------------
+
+# Desenvolvimento
+
+O projeto foi desenvolvido de forma incremental utilizando:
+
+-   commits incrementais;
+-   branches;
+-   Pull Requests;
+-   quatro Releases;
+-   avaliação por pares via GitHub Issues.
+
+------------------------------------------------------------------------
 
 # Documentação
 
-A documentação completa do projeto encontra-se na pasta `docs/`, incluindo:
+A pasta `docs/` contém:
 
-- relatório técnico;
-- diagramas da arquitetura;
-- modelagem do sistema;
-- documentação de hardware;
-- resultados experimentais.
+-   relatório final (SBC);
+-   diagramas em D2, SVG e PDF;
+-   documentação técnica;
+-   resultados experimentais.
 
----
+Os diagramas utilizados no GitHub encontram-se em:
+
+``` text
+docs/diagramas/
+```
+
+------------------------------------------------------------------------
+
+# Releases
+
+-   v1.0
+-   v2.0
+-   v3.0
+-   v4.0
+
+------------------------------------------------------------------------
 
 # Licença
 
-Este projeto é distribuído sob os termos da **MIT License**.
+Este projeto é distribuído sob a **MIT License**.
 
-Copyright © 2026 CarolinaTavaresDuarte.
-
-Consulte o arquivo [`LICENSE`](LICENSE) para o texto completo da licença.
-
-Este projeto é distribuído sob os termos da licença **GNU GPL v3**.
-
-Consulte o arquivo `LICENSE` para mais informações.
+Consulte o arquivo `LICENSE`.
